@@ -4,8 +4,10 @@ const logger = require("morgan");
 const path = require("path");
 
 /////////////////////////////////////////////////////////////////
- const userRouter = require("./routes/user_route");
- 
+const userRouter = require("./routes/user_route");
+const productRoute = require("./routes/product_route");
+
+
 //initialize express
 const app = express();
 app.use(express.static(path.join(__dirname, "../build")));
@@ -18,41 +20,43 @@ verbindeDB();
 
 app.use(logger("dev"));
 //Body Parser
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({extended: false}));
 app.use(express.json());
-
+//Image Upload
+app.use(express.static('uploads'))
 //CORS Header Info
 const corsHeader = require("./middleware/cors");
 app.use(corsHeader);
 
 //Routes
 app.use("/user", userRouter);
+app.use("/product", productRoute);
 
 
 //Error Middleware needs to be last
 //dead End
 
-app.get('*',(req,res,next)=>{
-    let fehler=new Error('Diesen Pfad gibt es nicht')
-    fehler.statusCode=404
+app.get('*', (req, res, next) => {
+    let fehler = new Error('Diesen Pfad gibt es nicht')
+    fehler.statusCode = 404
     next(fehler)
 })
 // usere Fehler middleware:
-app.use((error, req,res,next) => {
+app.use((error, req, res, next) => {
     // status im header setzen:
     res.status(error.statusCode)
     res.send({
-      error: {
-        status: error.statusCode,
-        mitteilung: error.message
-      }
+        error: {
+            status: error.statusCode,
+            mitteilung: error.message
+        }
     })
-  })
+})
 
 
 const port = process.env.PORT || 5050;
 app.listen(port, () => {
-  console.log(`server running on port ${port}`);
+    console.log(`server running on port ${port}`);
 });
 
 //mit send or end req/res cycle ends!
