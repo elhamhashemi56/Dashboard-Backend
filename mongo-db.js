@@ -2,7 +2,7 @@
 
 /** Mongoose Modul importieren  */
 const mongoose = require("mongoose");
-let addressString = process.env.mongo || "mongodb://localhost:27017/dashboardDB";
+let addressString = process.env.mongo
 let optionen = { useNewUrlParser: true, useUnifiedTopology: true };
 
 const verbindeDB = () => {
@@ -17,3 +17,6 @@ const verbindeDB = () => {
 }
 
 module.exports = verbindeDB;
+
+
+
