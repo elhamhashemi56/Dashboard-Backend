@@ -16,10 +16,11 @@ const getProductList = (req, res, next) => {
 const productPostController = async (req, res, next) => {
     try {
         const newProduct = req.body
-        console.log('newProduct',newProduct);
-        const imagefilename = req.file.filename
-        console.log("imagefilename=",imagefilename)
-        await Product.create({ ...newProduct,image:"http://localhost:" + process.env.PORT + "/" + imagefilename})
+        // console.log('newProduct',newProduct);
+        // const imagefilename = req.file.filename
+        // console.log("imagefilename=",imagefilename)
+        // await Product.create({ ...newProduct,image:"http://localhost:" + process.env.PORT + "/" + imagefilename})
+        await Product.create(newProduct)
         res.status(201).send(true);
     } catch (fehler) {
         next(fehler)
