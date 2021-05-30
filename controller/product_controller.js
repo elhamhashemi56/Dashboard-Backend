@@ -19,7 +19,8 @@ const productPostController = async (req, res, next) => {
          console.log('newProduct',newProduct);
          const imagefilename = req.file.filename
          console.log("imagefilename=",imagefilename)
-        await Product.create({ ...newProduct,image:"http://localhost:" + process.env.PORT + "/" + imagefilename})
+        // await Product.create({ ...newProduct,image:"http://localhost:" + process.env.PORT + "/" + imagefilename})
+        await Product.create({ ...newProduct,image:"https://dashboard-backend-elham.herokuapp.com" + "/" + imagefilename})
         // await Product.create(newProduct)
         res.status(201).send(true);
     } catch (fehler) {
