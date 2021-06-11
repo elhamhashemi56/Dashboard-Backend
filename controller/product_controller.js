@@ -4,7 +4,8 @@ const Product = require("../models/product");
 
 //GET ************************************
 const getProductList = (req, res, next) => {
-    Product.find().then(products => {
+    Product.find()
+    .then(products => {
         res.status(200).send(products);
     }).catch(err => {
         res.status(400).send(err.message);
@@ -33,7 +34,7 @@ const productPostController = async (req, res, next) => {
             ...newProduct,
             image: "https://dashboard-backend-elham.herokuapp.com" + "/" + imagefilename
         })
-        // await Product.create(newProduct)
+       
         res.status(201).send(true);
     } catch (fehler) {
         next(fehler)
